@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            background-image: url('1.jpeg.jpg');
+            background-size: cover;
+            background-attachment: scroll;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .input-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .input-container input[type="text"] {
+            background-color: #f8f8f8;
+            border: none;
+            border-radius: 5px;
+            padding: 8px;
+            width: 150px;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .input-container input[type="text"]:focus {
+            background-color: #e8e8e8;
+        }
+
+        .input-container::before {
+            content: "Patient Details";
+            display: block;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .operations {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .operations button {
+            margin: 0 5px;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .queue {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .queue div {
+            width: 100px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #da1111;
+            border-radius: 5px;
+            margin: 5px;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .animate-last {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .animate-first {
+            animation: fadeOut 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes fadeOut {
+            0% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+        }
+
+        #prompt {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .count {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+    </style>
+    <link rel="stylesheet" href="fds.css">
+    <title>Hospital Management System</title>
+</head>
+    <h2>Hospital Management System</h2>
+
+    <div class="count">Apponitment Count: <span id="queueCount">0</span></div>
+
+    <div class="input-container">
+        <input type="text" placeholder="Enter patient name" id="value">
+    </div>
+
+    <div class="operations">
+        <button onclick="lastadd()" style="background-color: rgb(70, 138, 234);">Back Enqueue</button>
+        <button onclick="lastdel()" style="background-color: red;">Back Dequeue</button>
+        <button onclick="firstadd()" style="background-color: rgb(70, 138,234);">Front Enqueue</button>
+        <button onclick="firstdel()" style="background-color: red;">Front Dequeue</button>
+    </div>
+
+    <div class="queue"></div>
+
+    <div id="prompt"></div>
+
+    <script>
+        var count = 0;
+        var queueCountElement = document.getElementById('queueCount');
+
+        function random() {
+            const color = ["violet", "blue", "green", "yellow", "orange", "red", "black", "cyan", "pink"];
+            var value = Math.floor(Math.random() * color.length);
+            var item = color[value];
+            return item;
+        }
+
+        function updateQueueCount() {
+            queueCountElement.textContent = count;
+        }
+
+        function lastadd() {
+            count = count + 1;
+            var cartBody = document.querySelector(".queue");
+            var cartRow = document.createElement("div");
+            var center = document.createElement('span');
+            center.innerHTML = document.getElementById('value').value;
+            var input = document.getElementById('value').value;
+            cartRow.innerHTML = input;
+            cartRow.style.backgroundColor = random();
+            cartBody.appendChild(cartRow);
+            cartBody = document.querySelector(".queue");
+            lastChild = cartBody.lastElementChild;
+            lastChild.classList.add("animate-last");
+            lastChild.addEventListener('animationend', () => {
+                lastChild.classList.remove('animate-last');
+            });
+            updateQueueCount();
+        }
+
+        function lastdel() {
+            if (count > 0) {
+                count = count - 1;
+                var cartBody = document.querySelector(".queue");
+                var lastChild = cartBody.lastElementChild;
+                lastChild.classList.add('animate-first');
+                lastChild.addEventListener('animationend', () => {
+                    lastChild.classList.remove('animate-first');
+                    cartBody.removeChild(lastChild);
+                });
+                updateQueueCount();
+            }
+        }
+
+        function firstadd() {
+            count = count + 1;
+            var cartBody = document.querySelector('.queue');
+            var cartRow = document.createElement('div');
+            var input = document.getElementById("value").value;
+            cartRow.innerHTML = input;
+            cartRow.style.backgroundColor = random();
+            cartBody.prepend(cartRow);
+            firstChild = cartBody.firstElementChild;
+            firstChild.classList.add('animate-last');
+            firstChild.addEventListener('animationend', () => {
+                firstChild.classList.remove('animate-last');
+            });
+            updateQueueCount();
+        }
+
+        function firstdel() {
+            if (count > 0) {
+                count = count - 1;
+                var cartBody = document.querySelector('.queue');
+                var firstChild = cartBody.firstElementChild;
+                firstChild.classList.add('animate-first');
+                firstChild.addEventListener('animationend', () => {
+                    firstChild.classList.remove('animate-first');
+                    cartBody.removeChild(firstChild);
+                });
+                updateQueueCount();
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,128 @@
+/* Reset some default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Body styles */
+  body {
+    background-image: url('1.jpeg');
+    background-size: cover;
+    background-attachment: scroll;
+    font-family: Arial, sans-serif;
+    color: #fff;
+    padding: 20px;
+  }
+  
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: black;
+  }
+  
+  /* Input box styles */
+  .input-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .input-container input[type="text"] {
+    background-color: #f8f8f8;
+    border: none;
+    border-radius: 5px;
+    padding: 8px;
+    width: 150px;
+    outline: none;
+    font-size: 14px;
+  }
+  
+  .input-container input[type="text"]:focus {
+    background-color: #e8e8e8;
+  }
+  
+  .input-container::before {
+    content: "";
+    background-image: url('1.jpg');
+    background-position: center center;
+    background-repeat: no-repeat;
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin-right: 10px;
+  }
+  
+  /* Operations buttons */
+  .operations {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .operations button {
+    margin: 0 5px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  /* Queue container */
+  .queue {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  /* Individual cart row */
+  .queue div {
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    margin: 5px;
+    font-weight: bold;
+    font-size: 16px;
+  }
+  
+  /* Animation classes */
+  .animate-last {
+    animation: fadeIn 0.5s ease-in;
+  }
+  
+  .animate-first {
+    animation: fadeOut 0.5s ease-in;
+  }
+  
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+      transform: scale(0.5);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+  @keyframes fadeOut {
+    0% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(0.5);
+    }
+  }
+  
+  /* Prompt message */
+  #prompt {
+    text-align: center;
+    margin-bottom: 20px;
+  }
